@@ -17,6 +17,16 @@ app.get('/', function(req, res) {
   res.send('Hello World!');
 });
 
+// Models
+require('./models/User');
+require('./models/Topic');
+require('./models/Flashcard');
+
+require('./models/types/CorrectSequence');
+require('./models/types/JoinWithArrows');
+require('./models/types/StandardFlashcard');
+require('./models/types/TrueOrFalse');
+
 // ----------------------------------------------------
 
 app.set('port', process.env.PORT || 3000);
