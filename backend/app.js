@@ -7,10 +7,14 @@ app.use(morgan('dev'));
 const cors = require('cors'); // CORS
 app.use(cors());
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })) //application/x-www-form-urlencoded
+
 const mongoose = require('mongoose'); // Mongoose
 mongoose.connect('mongodb://localhost:27017/flashcard-app', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 app.get('/', function(req, res) {
@@ -26,6 +30,8 @@ require('./models/types/CorrectSequence');
 require('./models/types/JoinWithArrows');
 require('./models/types/StandardFlashcard');
 require('./models/types/TrueOrFalse');
+
+app.use(require('./routes'));
 
 // ----------------------------------------------------
 
