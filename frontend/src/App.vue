@@ -1,60 +1,50 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+<v-app>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+  <Sidebar :drawer="drawer" />
 
-      <v-spacer></v-spacer>
+  <Navbar v-on:updateSidebar="onUpdateSidebar" />
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+  <v-main>
+    <Breadcrumb />
+    <v-container class="align-start" fluid>
+      <router-view />
+    </v-container>
+  </v-main>
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+  <Footer />
+
+</v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+import Breadcrumb from './components/Breadcrumb';
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    Sidebar,
+    Navbar,
+    Breadcrumb,
+    Footer,
   },
 
   data: () => ({
-    //
+    drawer: false,
   }),
+
+  methods: {
+    onUpdateSidebar: function(enlargeAmount) {
+      this.drawer = !this.drawer
+    },
+  },
+
 };
 </script>
+
+<style lang="scss">
+</style>

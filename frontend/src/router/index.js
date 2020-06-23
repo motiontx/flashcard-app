@@ -16,9 +16,19 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import(/* webpackChunkName: "terms" */ '../views/Terms.vue')
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue')
+  },
+  {
+    path: '/topics',
+    name: 'Topics',
+    component: () => import(/* webpackChunkName: "topics" */ '../views/Topics.vue')
   }
 ]
 
