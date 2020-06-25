@@ -1,11 +1,9 @@
 <template>
-  <v-row class="text-center">
-    <v-col class="mb-4">
-      <h1 class="display-2 font-weight-bold mb-3">
-        Training
-      </h1>
-    </v-col>
-  </v-row>
+<v-col class="mb-4 pa-5">
+  <h1 class="text-center mb-2">
+    Training
+  </h1>
+</v-col>
 </template>
 
 <script>
@@ -15,5 +13,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  // ...
+// ...
 </style>

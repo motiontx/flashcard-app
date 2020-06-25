@@ -1,50 +1,199 @@
 <template>
 <v-app>
 
-  <Sidebar :drawer="drawer" />
+  <!-- Drawer -->
+  <v-navigation-drawer class="drawer" v-model="drawer" clipped :mini-variant="miniVariant" app>
+    <v-list dense nav>
+      <v-list-item to="/profile">
+        <v-list-item-icon>
+          <v-icon>mdi-account-circle</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Motiontx</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider class="mb-1"></v-divider>
+      <v-list-item v-for="item in itemsDrawer" :key="item.title" :to="item.link" link>
+        <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 
-  <Navbar v-on:updateSidebar="onUpdateSidebar" />
+  <!-- App Bar -->
+  <v-app-bar color="deep-purple accent-4" dense dark clipped-left app>
+    <v-app-bar-nav-icon class="navIcon" @click.stop="miniVariant = !miniVariant"></v-app-bar-nav-icon>
+    <v-toolbar-title>Flashcard APP</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+    <v-menu left bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on">
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </template>
+      <v-list nav>
+        <v-list-item v-for="item in itemsAppBarMenu" :key="item.title" :to="item.link">
+          <v-icon left>{{ item.icon }}</v-icon>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </v-app-bar>
 
+  <!-- Bottom Nav -->
+  <v-bottom-navigation class="bottomNav" v-model="bottomNav" color="deep-purple accent-4" grow shift app>
+    <v-btn v-for="item in itemsBottomNav" :key="item.title" :to="item.link" link>
+      <span>{{ item.title }}</span>
+      <v-icon>{{ item.icon }}</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
+
+  <!-- Main -->
   <v-main>
-    <Breadcrumb />
+    <v-breadcrumbs :items="itemsBreadcrumb" class="pb-0 breadcrumbs">
+      <template v-slot:divider>
+        <v-icon>mdi-chevron-right</v-icon>
+      </template>
+    </v-breadcrumbs>
     <v-container class="align-start" fluid>
-      <router-view />
+      <v-row class="justify-center">
+        <router-view />
+      </v-row>
     </v-container>
   </v-main>
 
-  <Footer />
+  <!-- Footer -->
+  <v-footer class="footer" inset padless app absolute>
+    <v-card tile width="100%" class="text-center">
+      <v-card-text class="pa-1">
+        <v-btn v-for="item in itemsFooter" :key="item.title" text rounded :to="item.link" class="mx-1">
+          <v-icon left>
+            {{ item.icon }}
+          </v-icon>
+          {{item.title}}
+        </v-btn>
+        <v-btn text rounded href="https://github.com/motiontx/flashcard-app" target="_blank" class="mx-1">
+          <v-icon left>mdi-github</v-icon>
+          Code
+        </v-btn>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-text class="pa-2">
+        {{ new Date().getFullYear() }} — <strong>Flashcard APP</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
 
 </v-app>
 </template>
 
 <script>
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import Breadcrumb from './components/Breadcrumb';
-import Footer from './components/Footer';
-
 export default {
   name: 'App',
 
-  components: {
-    Sidebar,
-    Navbar,
-    Breadcrumb,
-    Footer,
-  },
-
   data: () => ({
-    drawer: false,
+    drawer: null,
+    miniVariant: true,
+    bottomNav: 3,
+
+    itemsDrawer: [{
+        title: 'Home',
+        icon: 'mdi-home',
+        link: '/',
+      },
+      {
+        title: 'Topics',
+        icon: 'mdi-cards',
+        link: '/topics',
+      },
+      {
+        title: 'Training',
+        icon: 'mdi-brain',
+        link: '/training',
+      },
+    ],
+
+    itemsAppBarMenu: [{
+        title: 'Profile',
+        icon: 'mdi-account-circle',
+        link: '/profile',
+      },
+      {
+        title: 'Logout',
+        icon: 'mdi-logout',
+        link: '#',
+      },
+    ],
+
+    itemsFooter: [{
+        title: 'About',
+        icon: 'mdi-help-box',
+        link: '/about',
+      },
+      {
+        title: 'Terms',
+        icon: 'mdi-newspaper-variant-multiple',
+        link: '/terms',
+      },
+    ],
+
+    itemsBottomNav: [{
+        title: 'Home',
+        icon: 'mdi-home',
+        link: '/',
+      },
+      {
+        title: 'Topics',
+        icon: 'mdi-cards',
+        link: '/topics',
+      },
+      {
+        title: 'Training',
+        icon: 'mdi-brain',
+        link: '/training',
+      },
+    ],
+
+    itemsBreadcrumb: [{
+        text: 'Home',
+        disabled: false,
+        href: '/',
+      },
+      {
+        text: 'Topics',
+        disabled: true,
+        href: '/topics',
+      },
+    ],
+
   }),
-
-  methods: {
-    onUpdateSidebar: function(enlargeAmount) {
-      this.drawer = !this.drawer
-    },
-  },
-
 };
 </script>
 
 <style lang="scss">
+.bottomNav {
+    display: none !important;
+    position: absolute !important;
+}
+
+@media (max-width: 1264px) {
+    .breadcrumbs,
+    .drawer,
+    .footer,
+    .navIcon {
+        display: none !important;
+    }
+
+    .bottomNav {
+        display: flex !important;
+        position: fixed !important;
+    }
+}
 </style>

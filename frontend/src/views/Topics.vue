@@ -1,71 +1,42 @@
 <template>
-<v-row class="text-center">
-  <v-col class="mb-4">
-    <v-expansion-panels multiple flat hover>
-      <v-expansion-panel v-for="(item,i) in 5" :key="i">
-        <v-expansion-panel-header hide-actions>
-          <v-row class="align-center">
-
-            <h3 class="text-h4">
-              Física I
-            </h3>
-
-            <v-btn x-small color="info" class="align-self-start ml-2">
-              Train
-            </v-btn>
-
-            <v-menu offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn x-small fab color="deep-purple" dark v-bind="attrs" v-on="on" class="ml-auto">
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item v-for="(item, index) in items" :key="index" @click="">
-                  <v-icon>{{ item.icon }}</v-icon>
-                  <v-list-item-title class="ml-2">{{ item.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-
-          </v-row>
-        </v-expansion-panel-header>
-        <v-divider class="mb-3"></v-divider>
-        <v-expansion-panel-content class="ml-2">
-          <v-row>
-            <Flashcard v-for="(item,i) in randomNumber()" />
-          </v-row>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-col>
-</v-row>
+<v-col class="mb-4 pa-5">
+  <h2 class="mb-2">Topics</h2>
+  <v-divider class="mb-4"></v-divider>
+  <v-row>
+    <div v-for="i in 10" class="topicCard">
+      <TopicCard />
+    </div>
+  </v-row>
+</v-col>
 </template>
 
 <script>
-import Flashcard from '@/components/Flashcard.vue'
+import TopicCard from '@/components/TopicCard.vue'
 
 export default {
   name: 'Topics',
   components: {
-    Flashcard,
+    TopicCard,
   },
-  data: () => ({
-    items: [{
-      title: 'Delete',
-      icon: 'mdi-delete'
-    }, ],
-  }),
-
-  methods: {
-    randomNumber() {
-      return Math.floor(Math.random() * (20)) + 5
-    },
-  }
 }
 </script>
 
-
 <style lang="scss" scoped>
-  // ...
+.topicCard {
+    padding: 0.6rem;
+    box-sizing: border-box;
+    width: 33.33%;
+}
+
+@media (max-width: 960px) {
+    .topicCard {
+        width: 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .topicCard {
+        width: 100%;
+    }
+}
 </style>

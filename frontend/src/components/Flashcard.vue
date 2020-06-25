@@ -1,8 +1,10 @@
 <template>
-<v-card rounded="lg" :color="color" dark class="flashcard" ripple>
-  <v-card-title class="headline">
-    <v-icon>mdi-chevron-right</v-icon>...
-  </v-card-title>
+<v-card rounded="lg" elevation="4" :color="color" dark ripple>
+  <v-responsive :aspect-ratio="16/9">
+    <v-card-title class="headline">
+      <v-icon>mdi-chevron-right</v-icon>...
+    </v-card-title>
+  </v-responsive>
 </v-card>
 </template>
 
@@ -20,9 +22,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flashcard {
-    width: 6rem;
-    height: 4rem;
-    margin: 0.4rem;
-}
+// ...
 </style>
