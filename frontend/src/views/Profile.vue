@@ -4,9 +4,21 @@
 
     <v-img class="white--text align-center" src="https://picsum.photos/600/125">
       <div class="profileHeader">
-        <v-avatar size="128" class="ma-1">
-          <img src="https://picsum.photos/200/200" alt="user">
-        </v-avatar>
+        <v-hover>
+          <template v-slot:default="{ hover }">
+            <v-avatar size="128" class="ma-1">
+              <img src="https://picsum.photos/200/200" alt="user">
+              <v-fade-transition>
+                <v-overlay v-if="hover" absolute color="indigo">
+                  <v-btn x-large icon @click="openAvatarLoader()">
+                    <v-icon>mdi-image-edit</v-icon>
+                  </v-btn>
+                  <input class="d-none" type="file" id="avatarLoader" name="avatar" accept="image/png, image/jpeg">
+                </v-overlay>
+              </v-fade-transition>
+            </v-avatar>
+          </template>
+        </v-hover>
         <v-card-title class="ma-1 pa-0 justify-center display-1 font-weight-bold">Motiontx</v-card-title>
       </div>
     </v-img>
@@ -40,6 +52,12 @@
 <script>
 export default {
   name: 'Profile',
+
+  methods: {
+    openAvatarLoader() {
+      document.getElementById('avatarLoader').click()
+    },
+  },
 };
 </script>
 

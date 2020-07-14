@@ -178,6 +178,11 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+    font-family: "Forgetica";
+    src: url("../public/fonts/SansForgetica-Regular.otf");
+}
+
 .bottomNav {
     display: none !important;
     position: absolute !important;
