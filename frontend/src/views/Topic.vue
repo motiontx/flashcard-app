@@ -4,7 +4,12 @@
     <v-card elevation="12" rounded="lg">
 
       <v-img class="white--text align-end" src="https://picsum.photos/1200/250">
-        <v-card-title class="display-1 font-weight-bold">Física I</v-card-title>
+        <v-card-title class="display-1 font-weight-bold">
+          {{topicName}}
+        </v-card-title>
+        <v-card-subtitle class="white--text">
+          {{topicDescription}}
+        </v-card-subtitle>
       </v-img>
 
       <v-row dense class="pa-5 mb-2">
@@ -26,7 +31,6 @@
           </v-card>
         </v-col>
       </v-row>
-
       <v-card-text class="pa-5">
         <h2 class="mb-2">
           <v-chip class="mr-1" color="pink" text-color="white">
@@ -54,6 +58,11 @@ export default {
   components: {
     Flashcard,
   },
+
+  data: () => ({
+    topicName: 'Física I',
+    topicDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+  }),
 }
 </script>
 
