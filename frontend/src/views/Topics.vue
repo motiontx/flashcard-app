@@ -3,6 +3,9 @@
   <h2 class="mb-2">Topics</h2>
   <v-divider class="mb-4"></v-divider>
   <v-row>
+    <div class="topicCard">
+      <TopicCardNew />
+    </div>
     <div v-for="i in 10" class="topicCard">
       <TopicCard />
     </div>
@@ -12,11 +15,13 @@
 
 <script>
 import TopicCard from '@/components/TopicCard.vue'
+import TopicCardNew from '@/components/TopicCardNew.vue'
 
 export default {
   name: 'Topics',
   components: {
     TopicCard,
+    TopicCardNew,
   },
 }
 </script>

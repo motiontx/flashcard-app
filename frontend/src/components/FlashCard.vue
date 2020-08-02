@@ -65,7 +65,7 @@
 
 <script>
 export default {
-  name: 'Flashcard',
+  name: 'FlashCard',
 
   data: () => ({
     currentSide: 'front',

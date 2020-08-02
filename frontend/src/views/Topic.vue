@@ -18,7 +18,7 @@
             <v-card-title class="headline">Test</v-card-title>
             <v-card-actions>
               <v-row no-gutters class="pa-1">
-                <v-btn color="success darken-1">
+                <v-btn color="success darken-1" to="/training">
                   <v-icon left>mdi-brain</v-icon>
                   Training
                 </v-btn>
@@ -31,6 +31,7 @@
           </v-card>
         </v-col>
       </v-row>
+
       <v-card-text class="pa-5">
         <h2 class="mb-2">
           <v-chip class="mr-1" color="pink" text-color="white">
@@ -39,8 +40,11 @@
           </v-chip> Flashcards:
         </h2>
         <v-row>
+          <div class="flashcard">
+            <FlashCardNew />
+          </div>
           <div v-for="(item,i) in 17" class="flashcard">
-            <Flashcard />
+            <FlashCard />
           </div>
         </v-row>
       </v-card-text>
@@ -51,12 +55,14 @@
 </template>
 
 <script>
-import Flashcard from '@/components/Flashcard.vue'
+import FlashCard from '@/components/FlashCard.vue'
+import FlashCardNew from '@/components/FlashCardNew.vue'
 
 export default {
   name: 'Topic',
   components: {
-    Flashcard,
+    FlashCard,
+    FlashCardNew,
   },
 
   data: () => ({
