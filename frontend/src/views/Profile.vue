@@ -31,15 +31,13 @@
     <v-form class="pa-6 pb-0">
       <h2 class="mb-2">Account</h2>
       <v-divider class="mb-6"></v-divider>
-      <v-row dense>
+      <v-row>
         <v-col cols="12" md="6" class="inputCol">
           <v-text-field value="Vittorio" label="Name" outlined></v-text-field>
         </v-col>
         <v-col cols="12" md="6" class="inputCol">
           <v-text-field value="Retrivi" label="Surname" outlined></v-text-field>
         </v-col>
-      </v-row>
-      <v-row dense>
         <v-col cols="12" md="3" class="inputCol">
           <v-text-field type="date" label="Birthday" outlined></v-text-field>
         </v-col>
@@ -49,11 +47,9 @@
         <v-col cols="12" md="4" class="inputCol">
           <v-text-field value="Argentina" label="Country" outlined></v-text-field>
         </v-col>
-      </v-row>
-      <v-row dense>
-        <v-col cols="auto"class="ml-auto">
-            <v-btn class="mx-1">Cancel</v-btn>
-            <v-btn class="mx-1" color="success" type="submit">Update Account</v-btn>
+        <v-col cols="auto" class="ml-auto">
+          <v-btn>Cancel</v-btn>
+          <v-btn class="ml-2" color="success" type="submit">Update Account</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -61,22 +57,18 @@
     <v-form class="pa-6">
       <h2 class="mb-2">Change Password</h2>
       <v-divider class="mb-6"></v-divider>
-      <v-row dense>
+      <v-row>
         <v-col cols="12" class="inputCol">
           <v-text-field type="password" label="Old password" outlined></v-text-field>
         </v-col>
-      </v-row>
-      <v-row dense>
         <v-col cols="12" md="6" class="inputCol">
           <v-text-field type="password" label="New password" outlined></v-text-field>
         </v-col>
         <v-col cols="12" md="6" class="inputCol">
           <v-text-field type="password" label="Confirm new password" outlined></v-text-field>
         </v-col>
-      </v-row>
-      <v-row dense>
-        <v-col cols="auto"class="ml-auto">
-            <v-btn class="mx-1" type="submit">Update Password</v-btn>
+        <v-col cols="auto" class="ml-auto">
+          <v-btn type="submit">Update Password</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -116,15 +108,15 @@ export default {
     right: 0;
 }
 
-.username{
-  color: #fff;
-  outline: none;
-  text-align: center;
+.username {
+    color: #fff;
+    outline: none;
+    text-align: center;
 }
 
 .inputCol {
-   height: 5rem;
-   display: flex !important;
-   align-items: center !important;
- }
+    height: 5rem;
+    display: flex !important;
+    align-items: center !important;
+}
 </style>

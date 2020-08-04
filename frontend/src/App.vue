@@ -2,7 +2,7 @@
 <v-app>
 
   <!-- Drawer -->
-  <v-navigation-drawer class="drawer" v-model="drawer" clipped :mini-variant="miniVariant" app>
+  <v-navigation-drawer v-if="!training" class="drawer" v-model="drawer" clipped :mini-variant="miniVariant" app>
     <v-list dense nav>
       <v-list-item to="/profile">
         <v-list-item-icon>
@@ -25,7 +25,7 @@
   </v-navigation-drawer>
 
   <!-- App Bar -->
-  <v-app-bar color="deep-purple accent-4" dense dark clipped-left app>
+  <v-app-bar v-if="!training" color="deep-purple accent-4" dense dark clipped-left app>
     <v-app-bar-nav-icon class="navIcon" @click.stop="miniVariant = !miniVariant"></v-app-bar-nav-icon>
     <v-toolbar-title>Flashcard APP</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -48,7 +48,7 @@
   </v-app-bar>
 
   <!-- Bottom Nav -->
-  <v-bottom-navigation class="bottomNav" v-model="bottomNav" color="deep-purple accent-4" grow shift app>
+  <v-bottom-navigation v-if="!training" class="bottomNav" v-model="bottomNav" color="deep-purple accent-4" grow shift app>
     <v-btn v-for="item in itemsBottomNav" :key="item.title" :to="item.link" link>
       <span>{{ item.title }}</span>
       <v-icon>{{ item.icon }}</v-icon>
@@ -57,7 +57,7 @@
 
   <!-- Main -->
   <v-main>
-    <v-breadcrumbs :items="itemsBreadcrumb" class="pb-0 breadcrumbs">
+    <v-breadcrumbs v-if="!training" :items="itemsBreadcrumb" class="pb-0 breadcrumbs">
       <template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
       </template>
@@ -70,7 +70,7 @@
   </v-main>
 
   <!-- Footer -->
-  <v-footer class="footer" inset padless app absolute>
+  <v-footer v-if="!training" class="footer" inset padless app absolute>
     <v-card tile width="100%" class="text-center">
       <v-card-text class="pa-1">
         <v-btn v-for="item in itemsFooter" :key="item.title" text rounded :to="item.link" class="mx-1">
@@ -95,6 +95,9 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: 'App',
 
@@ -174,6 +177,10 @@ export default {
     ],
 
   }),
+
+  computed: {
+    ...mapState(['training']),
+  },
 };
 </script>
 
@@ -182,6 +189,8 @@ export default {
     font-family: "Forgetica";
     src: url("../public/fonts/SansForgetica-Regular.otf");
 }
+
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
 
 .bottomNav {
     display: none !important;
