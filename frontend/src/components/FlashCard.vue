@@ -8,7 +8,7 @@
         <v-icon>mdi-redo</v-icon>
       </v-btn>
 
-      <v-menu left top>
+      <v-menu left top rounded="lg">
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="buttonOptions" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>

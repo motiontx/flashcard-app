@@ -4,16 +4,18 @@
   <v-divider class="mb-4"></v-divider>
   <v-row>
     <div class="topicCard">
-      <TopicCardNew />
+      <TopicCardNew @onSubmit="getTopics" />
     </div>
-    <div v-for="i in 10" class="topicCard">
-      <TopicCard />
+    <div v-for="topic in topics" class="topicCard">
+      <TopicCard :name="topic.name" :id="topic._id" @onDelete="getTopics" />
     </div>
   </v-row>
 </v-col>
 </template>
 
 <script>
+import axios from 'axios'
+
 import TopicCard from '@/components/TopicCard.vue'
 import TopicCardNew from '@/components/TopicCardNew.vue'
 
@@ -23,6 +25,28 @@ export default {
     TopicCard,
     TopicCardNew,
   },
+
+  data: () => ({
+    topics: [],
+  }),
+
+  methods:{
+    getTopics(){
+      axios.get('/topics')
+        .then((res) => {
+          this.topics = res.data
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+        }).finally(() => {
+          //Perform action in always
+        });
+    }
+  },
+
+  mounted() {
+    this.getTopics();
+  }
 }
 </script>
 

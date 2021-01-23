@@ -5,12 +5,26 @@
 
       <v-img class="white--text align-end" src="https://picsum.photos/1200/250">
         <v-card-title class="display-1 font-weight-bold">
-          {{topicName}}
+          {{topic.name}}
         </v-card-title>
         <v-card-subtitle class="white--text">
-          {{topicDescription}}
+          {{topic.description}}
         </v-card-subtitle>
       </v-img>
+
+      <v-menu left top rounded="lg">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn @click.stop class="buttonOptions" icon color="white" v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+        <v-list nav>
+          <v-list-item @click="deleteTopic">
+            <v-icon left>mdi-delete</v-icon>
+            <v-list-item-title>Delete</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <v-row dense class="pa-5 mb-2">
         <v-col cols="12">
@@ -21,10 +35,6 @@
                 <v-btn color="success darken-1" to="/training">
                   <v-icon left>mdi-brain</v-icon>
                   Training
-                </v-btn>
-                <v-btn color="error darken-1" class="ml-auto">
-                  <v-icon left>mdi-delete</v-icon>
-                  Delete
                 </v-btn>
               </v-row>
             </v-card-actions>
@@ -55,20 +65,52 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import FlashCard from '@/components/FlashCard.vue'
 import FlashCardNew from '@/components/FlashCardNew.vue'
 
 export default {
   name: 'Topic',
+  
   components: {
     FlashCard,
     FlashCardNew,
   },
 
   data: () => ({
-    topicName: 'Física I',
-    topicDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+    topic: {},
   }),
+
+  methods:{
+    getTopic(){
+      axios.get(`/topics/${this.$route.params.id}`)
+        .then((res) => {
+          this.topic = res.data;
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+        }).finally(() => {
+          //Perform action in always
+        });
+    },
+
+    deleteTopic(){
+      axios.delete(`/topics/${this.$route.params.id}`)
+        .then((res) => {
+          this.$router.push({ name: 'Topics' });
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+        }).finally(() => {
+          //Perform action in always
+        });
+    },
+  },
+
+  mounted() {
+    this.getTopic();
+  },
 }
 </script>
 
@@ -78,6 +120,13 @@ export default {
     padding: 0.6rem;
     box-sizing: border-box;
     width: 25%;
+}
+
+.buttonOptions {
+    z-index: 15;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 @media (max-width: 1264px) {
