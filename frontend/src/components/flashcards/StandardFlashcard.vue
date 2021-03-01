@@ -38,10 +38,17 @@ export default {
   },
 
   props: {
+    flashcardData: {},
     editable: {
       type: Boolean,
     },
   },
+
+  mounted(){
+    if (this.flashcardData) {
+      this.fields = this.flashcardData;
+    }
+  }
 };
 </script>
 

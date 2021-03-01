@@ -10,7 +10,7 @@
 import FlashCardBasic from './FlashCardBasic'
 
 export default {
-  name: 'FlashCardTrueOrFalse',
+  name: 'TrueOrFalse',
 
   components: {
     FlashCardBasic,

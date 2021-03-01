@@ -53,19 +53,8 @@
           <div class="flashcard">
             <FlashCardNew :url="urlToNew" />
           </div>
-          <div v-for="(item,i) in 17" :key="i" class="flashcard">
-            <StandardFlashcard>
-                <template #front>
-                  <v-card-text class="text-center">
-                    testing front
-                  </v-card-text>
-                </template>
-                <template #back>
-                  <v-card-text class="font-weight-bold text-center">
-                    testing back
-                  </v-card-text>
-                </template>
-            </StandardFlashcard>
+          <div v-for="(flashcard, i) in flashcards" :key="i" class="flashcard">
+            <FlashCardFactory :flashcardData="flashcard"/>
           </div>
         </v-row>
       </v-card-text>
@@ -78,19 +67,20 @@
 <script>
 import axios from 'axios'
 
-import StandardFlashcard from '@/components/flashcards/StandardFlashcard.vue'
+import FlashCardFactory from '@/components/flashcards/FlashCardFactory.vue'
 import FlashCardNew from '@/components/flashcards/FlashCardNew.vue'
 
 export default {
   name: 'Topic',
   
   components: {
-    StandardFlashcard,
+    FlashCardFactory,
     FlashCardNew,
   },
 
   data: () => ({
     topic: {},
+    flashcards: [],
   }),
 
   methods:{
@@ -98,6 +88,18 @@ export default {
       axios.get(`/topics/${this.$route.params.id}`)
         .then((res) => {
           this.topic = res.data;
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+        }).finally(() => {
+          //Perform action in always
+        });
+    },
+
+    getFlashcards(){
+      axios.get(`/flashcards/topic/${this.$route.params.id}`)
+        .then((res) => {
+          this.flashcards = res.data;
         })
         .catch((error) => {
           console.log(error.response.status);
@@ -121,6 +123,7 @@ export default {
 
   mounted() {
     this.getTopic();
+    this.getFlashcards();
   },
 
   computed: {
