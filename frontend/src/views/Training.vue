@@ -4,7 +4,7 @@
     <v-btn class="buttonExit" icon to="/#">
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <v-progress-linear class="progressBar" color="light-blue" height="10" value="10" striped rounded></v-progress-linear>
+    <v-progress-linear class="progressBar" color="light-blue" height="10" :value="progress" striped rounded></v-progress-linear>
     <v-btn class="buttonExit" icon>
       <v-icon>mdi-restart</v-icon>
     </v-btn>
@@ -12,9 +12,9 @@
   <div class="glide">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides">
-        <li v-for="i in 10" class="glide__slide">
+        <li v-for="i in 15" :key="i" class="glide__slide">
           <div class="flashcardBox">
-            <FlashCard class="flashcard" />
+            <FlashCardBasic class="flashcard" />
           </div>
         </li>
       </ul>
@@ -48,23 +48,27 @@
 </template>
 
 <script>
-import FlashCard from '@/components/FlashCard.vue'
+import FlashCardBasic from '@/components/flashcards/FlashCardBasic.vue'
 import Glide from '@glidejs/glide'
 export default {
   name: 'Training',
 
   components: {
-    FlashCard,
+    FlashCardBasic,
   },
+
+  data: () => ({
+    glideInstance: null,
+  }),
 
   created: function() {
     this.$store.commit('joinTraining');
   },
 
   mounted: function() {
-    new Glide('.glide', {
+    this.glideInstance = new Glide('.glide', {
       type: 'carousel',
-      startAt: 1,
+      startAt: 0,
       perView: 1,
       peek: 150,
     }).mount()
@@ -72,6 +76,12 @@ export default {
 
   destroyed: function() {
     this.$store.commit('exitTraining');
+  },
+
+  computed: {
+    progress() {
+      return this.glideInstance && this.glideInstance.index * 100 / 15;
+    }
   }
 
 };

@@ -4,11 +4,11 @@
   <v-card rounded="lg" elevation="4" :color="color" dark ripple class="front">
     <v-responsive :aspect-ratio="16/9">
 
-      <v-btn class="buttonFlip" color="white" icon @click="flipToBack()">
+      <v-btn v-if="flippable" class="buttonFlip" color="white" icon @click="flipToBack()">
         <v-icon>mdi-redo</v-icon>
       </v-btn>
 
-      <v-menu left top rounded="lg">
+      <v-menu v-if="showOptions" left top rounded="lg">
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="buttonOptions" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -23,9 +23,7 @@
       </v-menu>
 
       <div class="frontData d-flex flex-column justify-center align-center">
-        <v-card-text class="text-center">
-          <p>Magnitud termodinámica que indica el grado de desorden molecular de un sistema.</p>
-        </v-card-text>
+        <slot name="front"/>
       </div>
 
     </v-responsive>
@@ -34,11 +32,11 @@
   <v-card rounded="lg" elevation="4" :color="color" dark ripple class="back">
     <v-responsive :aspect-ratio="16/9">
 
-      <v-btn class="buttonFlip" color="white" icon @click="flipToFront()">
+      <v-btn v-if="flippable" class="buttonFlip" color="white" icon @click="flipToFront()">
         <v-icon>mdi-undo</v-icon>
       </v-btn>
 
-      <v-menu left top>
+      <v-menu v-if="showOptions" left top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="buttonOptions" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -53,9 +51,7 @@
       </v-menu>
 
       <div class="backData d-flex flex-column justify-center align-center">
-        <v-card-text class="font-weight-bold text-center">
-          Entropía.
-        </v-card-text>
+        <slot name="back"/>
       </div>
     </v-responsive>
   </v-card>
@@ -65,7 +61,7 @@
 
 <script>
 export default {
-  name: 'FlashCard',
+  name: 'FlashCardBasic',
 
   data: () => ({
     currentSide: 'front',
@@ -82,6 +78,15 @@ export default {
       },
     ],
   }),
+
+  props: {
+    flippable: {
+      type: Boolean,
+    },
+    showOptions: {
+      type: Boolean,
+    }
+  },
 
   methods: {
     flipToFront() {
@@ -107,6 +112,7 @@ export default {
     transition: transform 0.3s ease-in-out;
     position: relative;
     perspective: 800px;
+    height: fit-content;
 }
 
 .back,

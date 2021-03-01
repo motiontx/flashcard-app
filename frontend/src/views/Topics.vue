@@ -6,7 +6,7 @@
     <div class="topicCard">
       <TopicCardNew @onSubmit="getTopics" />
     </div>
-    <div v-for="topic in topics" class="topicCard">
+    <div v-for="(topic, index) in topics" :key="index" class="topicCard">
       <TopicCard :name="topic.name" :id="topic._id" @onDelete="getTopics" />
     </div>
   </v-row>

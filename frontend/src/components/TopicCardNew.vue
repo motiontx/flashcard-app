@@ -61,6 +61,10 @@ export default {
     submitNewTopic() {
       axios.post('/topics', this.form)
         .then((res) => {
+          this.form = {
+            name: '',
+            description: '',
+          }
           this.$emit('onSubmit');
         })
         .catch((error) => {

@@ -16,9 +16,15 @@ router.get('/types', async (req, res) => {
 });
 
 // Create
-// router.post('/', async (req, res) => {
-//
-// });
+router.post('/', async (req, res) => {
+  const body = req.body;
+  try {
+    const flashcardDb = await Flashcard.create(body);
+    res.json(flashcardDb);
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+});
 
 // Get By Id
 router.get('/:id', async (req, res) => {
@@ -32,9 +38,10 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get All
-router.get('/', async (req, res) => {
+router.get('/topic/:id', async (req, res) => {
+  const _topicId = mongoose.Types.ObjectId(req.params.id);
   try {
-    const flashcardDb = await Flashcard.find();
+    const flashcardDb = await Flashcard.find({topic: _topicId});
     res.json(flashcardDb);
   } catch (error) {
     return res.status(400).json(error)

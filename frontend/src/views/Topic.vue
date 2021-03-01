@@ -51,10 +51,21 @@
         </h2>
         <v-row>
           <div class="flashcard">
-            <FlashCardNew />
+            <FlashCardNew :url="urlToNew" />
           </div>
-          <div v-for="(item,i) in 17" class="flashcard">
-            <FlashCard />
+          <div v-for="(item,i) in 17" :key="i" class="flashcard">
+            <StandardFlashcard>
+                <template #front>
+                  <v-card-text class="text-center">
+                    testing front
+                  </v-card-text>
+                </template>
+                <template #back>
+                  <v-card-text class="font-weight-bold text-center">
+                    testing back
+                  </v-card-text>
+                </template>
+            </StandardFlashcard>
           </div>
         </v-row>
       </v-card-text>
@@ -67,14 +78,14 @@
 <script>
 import axios from 'axios'
 
-import FlashCard from '@/components/FlashCard.vue'
-import FlashCardNew from '@/components/FlashCardNew.vue'
+import StandardFlashcard from '@/components/flashcards/StandardFlashcard.vue'
+import FlashCardNew from '@/components/flashcards/FlashCardNew.vue'
 
 export default {
   name: 'Topic',
   
   components: {
-    FlashCard,
+    StandardFlashcard,
     FlashCardNew,
   },
 
@@ -111,6 +122,12 @@ export default {
   mounted() {
     this.getTopic();
   },
+
+  computed: {
+    urlToNew() {
+      return `/topic/${this.$route.params.id}/new`;
+    }
+  }
 }
 </script>
 
