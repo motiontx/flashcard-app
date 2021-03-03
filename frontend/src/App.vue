@@ -62,8 +62,8 @@
         <v-icon>mdi-chevron-right</v-icon>
       </template>
     </v-breadcrumbs>
-    <v-container class="align-start" fluid>
-      <v-row class="justify-center">
+    <v-container class="align-start container" fluid>
+      <v-row class="justify-center main-content">
         <router-view />
       </v-row>
     </v-container>
@@ -185,12 +185,22 @@ export default {
 </script>
 
 <style lang="scss">
+
+html {
+  overflow: -moz-scrollbars-vertical; 
+  overflow-y: scroll;
+}
+
 @font-face {
     font-family: "Forgetica";
     src: url("../public/fonts/SansForgetica-Regular.otf");
 }
 
 @import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+
+.container, .main-content {
+  height: 100%;
+}
 
 .bottomNav {
     display: none !important;

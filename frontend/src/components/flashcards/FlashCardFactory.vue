@@ -7,17 +7,27 @@ import StandardFlashcard from './StandardFlashcard'
 import TrueOrFalse from './TrueOrFalse'
 
 export default {
-    name: 'flashCardFactory',
-    components: {
-        StandardFlashcard,
-        TrueOrFalse,
-    },
+  name: 'flashCardFactory',
+  components: {
+    StandardFlashcard,
+      TrueOrFalse,
+  },
 
-    props: {
-        flashcardData: {
-            required: true,
-        } 
-    }
+  props: {
+    showOptions: {
+      type: Boolean,
+      default: false,
+    },
+    flashcardData: {
+      required: true,
+    } 
+  },
+
+  provide() {
+    return {
+      $showOptions: () => this.showOptions,
+    };
+  },
 }
 </script>
 

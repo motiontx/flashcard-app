@@ -1,19 +1,6 @@
 <template>
 <v-card elevation="8" rounded="lg" ripple :to="topicURL">
   <v-img :src="randomImg"/>
-  <v-menu left top rounded="lg">
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn @click.stop class="buttonOptions" icon color="white" v-bind="attrs" v-on="on">
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </template>
-    <v-list nav>
-      <v-list-item @click="deleteTopic">
-        <v-icon left>mdi-delete</v-icon>
-        <v-list-item-title>Delete</v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </v-menu>
   <v-card-title>{{name}}</v-card-title>
   <v-card-subtitle>17 Cards</v-card-subtitle>
 </v-card>

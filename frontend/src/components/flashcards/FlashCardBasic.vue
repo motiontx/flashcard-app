@@ -4,11 +4,11 @@
   <v-card rounded="lg" elevation="4" :color="color" dark ripple class="front">
     <v-responsive :aspect-ratio="16/9">
 
-      <v-btn v-if="flippable" class="buttonFlip" color="white" icon @click="flipToBack()">
+      <v-btn v-if="flippable" class="buttonFlip" icon @click="flipToBack()">
         <v-icon>mdi-redo</v-icon>
       </v-btn>
 
-      <v-menu v-if="showOptions" left top rounded="lg">
+      <v-menu v-if="$showOptions" left top rounded="lg">
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="buttonOptions" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -32,11 +32,11 @@
   <v-card rounded="lg" elevation="4" :color="color" dark ripple class="back">
     <v-responsive :aspect-ratio="16/9">
 
-      <v-btn v-if="flippable" class="buttonFlip" color="white" icon @click="flipToFront()">
+      <v-btn v-if="flippable" class="buttonFlip" icon @click="flipToFront()">
         <v-icon>mdi-undo</v-icon>
       </v-btn>
 
-      <v-menu v-if="showOptions" left top>
+      <v-menu v-if="$showOptions" left top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn class="buttonOptions" icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -82,11 +82,11 @@ export default {
   props: {
     flippable: {
       type: Boolean,
-    },
-    showOptions: {
-      type: Boolean,
+      default: false,
     }
   },
+
+  inject: ['$showOptions'],
 
   methods: {
     flipToFront() {
@@ -99,8 +99,8 @@ export default {
 
   computed: {
     color() {
-      const colors = ['red', 'pink', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'blue-grey', 'grey'];
-      return `${colors[Math.floor(Math.random() * colors.length)]} darken-1`;
+      const colors = ['red lighten-4', 'pink lighten-4', 'purple', 'deep-purple', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'blue-grey', 'grey'];
+      return `${colors[Math.floor(Math.random() * colors.length)]} darken-2`;
     },
   },
 };

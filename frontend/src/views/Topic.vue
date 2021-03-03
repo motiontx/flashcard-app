@@ -45,8 +45,7 @@
       <v-card-text class="pa-5">
         <h2 class="mb-2">
           <v-chip class="mr-1" color="pink" text-color="white">
-            <v-icon left>mdi-cards</v-icon>
-            17
+            <v-icon left>mdi-cards</v-icon> {{countFlashcards}}
           </v-chip> Flashcards:
         </h2>
         <v-row>
@@ -54,7 +53,7 @@
             <FlashCardNew :url="urlToNew" />
           </div>
           <div v-for="(flashcard, i) in flashcards" :key="i" class="flashcard">
-            <FlashCardFactory :flashcardData="flashcard"/>
+            <FlashCardFactory :flashcardData="flashcard" showOptions/>
           </div>
         </v-row>
       </v-card-text>
@@ -86,26 +85,14 @@ export default {
   methods:{
     getTopic(){
       axios.get(`/topics/${this.$route.params.id}`)
-        .then((res) => {
-          this.topic = res.data;
-        })
-        .catch((error) => {
-          console.log(error.response.status);
-        }).finally(() => {
-          //Perform action in always
-        });
-    },
-
-    getFlashcards(){
-      axios.get(`/flashcards/topic/${this.$route.params.id}`)
-        .then((res) => {
-          this.flashcards = res.data;
-        })
-        .catch((error) => {
-          console.log(error.response.status);
-        }).finally(() => {
-          //Perform action in always
-        });
+      .then((res) => {
+        this.topic = res.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      }).finally(() => {
+        //Perform action in always
+      });
     },
 
     deleteTopic(){
@@ -119,6 +106,18 @@ export default {
           //Perform action in always
         });
     },
+
+    getFlashcards(){
+      axios.get(`/flashcards/topic/${this.$route.params.id}`)
+      .then((res) => {
+        this.flashcards = res.data;
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+      }).finally(() => {
+        //Perform action in always
+      });
+    },
   },
 
   mounted() {
@@ -129,6 +128,10 @@ export default {
   computed: {
     urlToNew() {
       return `/topic/${this.$route.params.id}/new`;
+    },
+
+    countFlashcards() {
+      return this.flashcards.length;
     }
   }
 }
@@ -143,7 +146,6 @@ export default {
 }
 
 .buttonOptions {
-    z-index: 15;
     position: absolute;
     top: 0;
     right: 0;

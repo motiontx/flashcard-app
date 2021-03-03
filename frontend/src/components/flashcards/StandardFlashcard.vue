@@ -31,17 +31,17 @@ export default {
     }
   }),
 
-  computed: {
-    rawFields(){
-      return JSON.stringify(this.fields);
-    }
-  },
-
   props: {
     flashcardData: {},
     editable: {
       type: Boolean,
     },
+  },
+
+  computed: {
+    rawFields(){
+      return JSON.stringify(this.fields);
+    }
   },
 
   mounted(){
